@@ -18,6 +18,7 @@ const OnBoarding = () => {
         if (currentIndex < slides.length - 1) {
             slidersRef.current.scrollToIndex({ index: currentIndex + 1 })
         }
+        
     }
     return (
         <View style={styles.container}>
