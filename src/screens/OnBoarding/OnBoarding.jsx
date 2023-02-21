@@ -1,31 +1,33 @@
 import { StyleSheet, Text, View, FlatList, Animated } from 'react-native'
 import React, { useRef, useState } from 'react'
 import slides from '../../data/slides'
-import OnBoardingItem from './OnBoardingItem'
-import Paginator from './Paginator'
-import Button from '../Buttons/Button'
+import OnBoardingItem from '../../components/OnBoarding/OnBoardingItem'
+import Paginator from '../../components/OnBoarding/Paginator'
+import Button from '../../components/Buttons/Button'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-const OnBoarding = () => {
+const OnBoarding = ({ navigation }) => {
     const [currentIndex, setCurrentIndex] = useState(2);
     const scrollx = useRef(new Animated.Value(0)).current
     const slidersRef = useRef(null)
-
     const viewableItemsChanged = useRef(({ viewableItems }) => {
         setCurrentIndex(viewableItems[0].index)
     }).current
-
     const handlePaging = () => {
         if (currentIndex < slides.length - 1) {
             slidersRef.current.scrollToIndex({ index: currentIndex + 1 })
         }
-        
+        else if (currentIndex == slides.length - 1) {
+            navigation.navigate("SuggestCategory")
+        }
+
     }
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <FlatList data={slides}
                 renderItem={({ item }) => <OnBoardingItem item={item} />}
                 horizontal
-                showsHorizontalScrollIndicator
+                showsHorizontalScrollIndicator={false}
                 pagingEnabled bounces={false}
                 keyExtractor={(item) => item.id}
                 onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollx } } }], {
@@ -39,7 +41,7 @@ const OnBoarding = () => {
                 <Paginator data={slides} scrollX={scrollx} />
                 <Button title="Next" width={163} onPress={handlePaging} />
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
