@@ -1,15 +1,14 @@
 import { View, Text, StyleSheet, StatusBar, SafeAreaView } from 'react-native'
 import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
-import OnBoarding from './src/components/OnBoarding/OnBoarding'
+import OnBoardingContainer from './src/screens/OnBoarding/OnBoardingContainer'
 const App = () => {
   useEffect(() => {
     SplashScreen.hide()
   }, [])
   return (
-    <SafeAreaView style={styles.container}>
-      <OnBoarding />
-    </SafeAreaView>
+    
+    <OnBoardingContainer />
   )
 }
 
