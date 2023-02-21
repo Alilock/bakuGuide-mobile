@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import OnBoardingContainer from './src/screens/OnBoarding/OnBoardingContainer'
 const App = () => {
+ 
   useEffect(() => {
     SplashScreen.hide()
   }, [])

@@ -1,5 +1,6 @@
 import { FlatList, Image, StyleSheet, Text, View, TouchableOpacity, useWindowDimensions } from 'react-native'
 import React, { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import categories from '../../data/categories'
 import Button from '../../components/Buttons/Button'
@@ -12,13 +13,18 @@ const SuggestCategoryScreen = () => {
 
         const isSelected = selectedCategories.includes(item.id);
         const handleCategoryPress = (categoryId) => {
-            if (selectedCategories.includes(categoryId)) {
-                setSelectedCategories((prev) => prev.filter((id) => id !== categoryId));
-            } else {
-                setSelectedCategories((prev) => [...prev, categoryId]);
-            }
-        };
 
+            const newSelectedCategories = [...selectedCategories];
+
+            if (newSelectedCategories.includes(categoryId)) {
+                newSelectedCategories.splice(newSelectedCategories.indexOf(categoryId), 1);
+            } else {
+                newSelectedCategories.push(categoryId);
+            }
+
+            setSelectedCategories(newSelectedCategories);
+            AsyncStorage.setItem("suggestedCategories", JSON.stringify(newSelectedCategories))
+        };
         return (
             <TouchableOpacity
                 onPress={() => handleCategoryPress(item.id)}
@@ -35,7 +41,6 @@ const SuggestCategoryScreen = () => {
         );
     };
 
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.pageHeader}>
@@ -49,7 +54,7 @@ const SuggestCategoryScreen = () => {
                 renderItem={renderItem}
             />
             <View style={styles.buttonWrap}>
-                <Button title={"Next"} />
+                <Button isAccess={selectedCategories.length >= 2 ? true : false} title={"Next"} />
             </View>
         </SafeAreaView>
     )
