@@ -9,9 +9,9 @@ const OnBoardingContainer = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                {/* <Stack.Screen name="Onboarding" component={OnBoarding} options={{
+                <Stack.Screen name="Onboarding" component={OnBoarding} options={{
                     headerShown: false
-                }} /> */}
+                }} />
                 <Stack.Screen name="SuggestCategory" component={SuggestCategoryScreen} options={{
                     headerShown: false
                 }} />

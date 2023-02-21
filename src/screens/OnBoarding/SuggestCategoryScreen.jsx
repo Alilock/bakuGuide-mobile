@@ -1,7 +1,9 @@
 import { FlatList, Image, StyleSheet, Text, View, TouchableOpacity, useWindowDimensions } from 'react-native'
 import React, { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import categories from '../../data/categories'
+import Button from '../../components/Buttons/Button'
 
 const SuggestCategoryScreen = () => {
 
@@ -10,30 +12,34 @@ const SuggestCategoryScreen = () => {
     const renderItem = ({ item }) => {
 
         const isSelected = selectedCategories.includes(item.id);
-
         const handleCategoryPress = (categoryId) => {
-            if (selectedCategories.includes(categoryId)) {
-                setSelectedCategories((prev) => prev.filter((id) => id !== categoryId));
+
+            const newSelectedCategories = [...selectedCategories];
+
+            if (newSelectedCategories.includes(categoryId)) {
+                newSelectedCategories.splice(newSelectedCategories.indexOf(categoryId), 1);
             } else {
-                setSelectedCategories((prev) => [...prev, categoryId]);
+                newSelectedCategories.push(categoryId);
             }
+
+            setSelectedCategories(newSelectedCategories);
+            AsyncStorage.setItem("suggestedCategories", JSON.stringify(newSelectedCategories))
         };
-
-
-
         return (
-            <>
-                <TouchableOpacity
-                    onPress={() => handleCategoryPress(item.id)}
-                    style={[{ ...styles.card, width: width / 2 - 24 }]}
-                >
-                    < Image source={item.image} />
-                    <Text style={styles.card.text}>{item.name}</Text>
-                </TouchableOpacity >
-            </>
+            <TouchableOpacity
+                onPress={() => handleCategoryPress(item.id)}
+                style={[{
+                    ...styles.card,
+                    width: width / 2 - 48,
+                    marginHorizontal: 16,
+                    borderColor: isSelected ? "#F6F6F6" : "#494949"
+                }]}
+            >
+                < Image source={item.image} />
+                <Text style={styles.card.text}>{item.name}</Text>
+            </TouchableOpacity >
         );
     };
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -41,7 +47,15 @@ const SuggestCategoryScreen = () => {
                 <Text style={styles.title}>Choose your interest</Text>
                 <Text style={styles.message}>Select at least 2 options that we can suggest you on the home page.</Text>
             </View>
-            <FlatList data={categories} contentContainerStyle={{ justifyContent: "space-between", marginHorizontal: 16, rowGap: 16, flexDirection: "row", flexWrap: "wrap" }} renderItem={renderItem} />
+            <FlatList
+                data={categories}
+                contentContainerStyle={styles.contentContainerStyle}
+                numColumns={2}
+                renderItem={renderItem}
+            />
+            <View style={styles.buttonWrap}>
+                <Button isAccess={selectedCategories.length >= 2 ? true : false} title={"Next"} />
+            </View>
         </SafeAreaView>
     )
 }
@@ -49,6 +63,11 @@ const SuggestCategoryScreen = () => {
 export default SuggestCategoryScreen
 
 const styles = StyleSheet.create({
+    contentContainerStyle: {
+        rowGap: 16,
+        marginHorizontal: 16,
+        justifyContent: "space-between"
+    },
     container: {
         flex: 1,
         backgroundColor: "#1c1c1c",
@@ -69,7 +88,6 @@ const styles = StyleSheet.create({
     },
     card: {
         borderRadius: 8,
-        width: 164,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
@@ -83,5 +101,9 @@ const styles = StyleSheet.create({
             textAlign: "center",
             marginTop: 10
         }
+    },
+    buttonWrap: {
+        marginHorizontal: 16,
+        marginBottom: 12
     }
 })

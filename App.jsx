@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import TabNavigation from './src/navigation/index';
 
 const App = () => {
+ 
   useEffect(() => {
     SplashScreen.hide();
   }, []);
