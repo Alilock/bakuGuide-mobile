@@ -1,3 +1,15 @@
+export {default as ClockIcon} from './ClockIcon';
+export {default as ClubIcon} from './ClubIcon';
 export {default as FavoriteIcon} from './FavoriteIcon';
 export {default as Homeicon} from './Homeicon';
+export {default as HospitalIcon} from './HospitalIcon';
+export {default as HotelIcon} from './HotelIcon';
+export {default as LocationIcon} from './LocationIcon';
+export {default as MuseumIcon} from './MuseumIcon';
+export {default as ParkIcon} from './ParkIcon';
+export {default as PhoneIcon} from './PhoneIcon';
+export {default as RestaurantIcon} from './RestaurantIcon';
 export {default as SearchIcon} from './SearchIcon';
+export {default as ShopIcon} from './ShopIcon';
+export {default as SightIocn} from './SightIocn';
+export {default as StarIcon} from './StarIcon';
