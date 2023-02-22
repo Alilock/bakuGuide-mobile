@@ -22,7 +22,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    AsyncStorage.clear()
     SplashScreen.hide();
     checkOnBoarding()
   }, []);
