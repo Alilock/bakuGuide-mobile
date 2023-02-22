@@ -5,18 +5,16 @@ import SuggestCategoryScreen from './SuggestCategoryScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 const Stack = createNativeStackNavigator();
-const OnBoardingContainer = () => {
+const OnBoardingContainer = ({ setIsOnBoarding }) => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Onboarding" component={OnBoarding} options={{
-                    headerShown: false
-                }} />
-                <Stack.Screen name="SuggestCategory" component={SuggestCategoryScreen} options={{
-                    headerShown: false
-                }} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator>
+            <Stack.Screen name="Onboarding" component={OnBoarding} options={{
+                headerShown: false
+            }} />
+            <Stack.Screen name="SuggestCategory" component={() => <SuggestCategoryScreen setIsOnBoarding={setIsOnBoarding} />} options={{
+                headerShown: false
+            }} />
+        </Stack.Navigator>
 
     )
 }

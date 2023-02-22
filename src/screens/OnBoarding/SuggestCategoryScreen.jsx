@@ -3,16 +3,28 @@ import React, { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import categories from '../../data/categories'
+import { useNavigation } from '@react-navigation/native'
 import Button from '../../components/Buttons/Button'
 
-const SuggestCategoryScreen = () => {
+const SuggestCategoryScreen = ({ setIsOnBoarding }) => {
 
     const [selectedCategories, setSelectedCategories] = useState([]);
     const { width } = useWindowDimensions();
+
+    const navigation = useNavigation();
+    const setStroge = async () => {
+        try {
+            await AsyncStorage.setItem("suggestedCategories", JSON.stringify(selectedCategories))
+            setIsOnBoarding(false)
+        } catch (error) {
+            console.log("Err setStorage", error);
+        }
+
+    }
     const renderItem = ({ item }) => {
 
         const isSelected = selectedCategories.includes(item.id);
-        const handleCategoryPress = (categoryId) => {
+        const handleCategoryPress = async (categoryId) => {
 
             const newSelectedCategories = [...selectedCategories];
 
@@ -23,8 +35,9 @@ const SuggestCategoryScreen = () => {
             }
 
             setSelectedCategories(newSelectedCategories);
-            AsyncStorage.setItem("suggestedCategories", JSON.stringify(newSelectedCategories))
         };
+
+
         return (
             <TouchableOpacity
                 onPress={() => handleCategoryPress(item.id)}
@@ -54,7 +67,8 @@ const SuggestCategoryScreen = () => {
                 renderItem={renderItem}
             />
             <View style={styles.buttonWrap}>
-                <Button isAccess={selectedCategories.length >= 2 ? true : false} title={"Next"} />
+                {selectedCategories && selectedCategories.length >= 2 ? <Button onPress={setStroge} isAccess={selectedCategories.length >= 2 ? true : false} title={"Next"} /> : ''}
+
             </View>
         </SafeAreaView>
     )

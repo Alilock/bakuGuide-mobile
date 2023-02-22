@@ -19,6 +19,7 @@ const OnBoarding = ({ navigation }) => {
         }
         else if (currentIndex == slides.length - 1) {
             navigation.navigate("SuggestCategory")
+            
         }
 
     }
