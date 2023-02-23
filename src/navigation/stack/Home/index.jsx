@@ -1,3 +1,4 @@
+
 import {
   StyleSheet,
   Text,
@@ -165,6 +166,7 @@ const index = () => {
         </View>
       </View>
     </ScrollView>
+
   );
 };
 
