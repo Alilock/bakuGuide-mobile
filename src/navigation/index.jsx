@@ -14,9 +14,11 @@ const TabNavigation = () => {
       <Tab.Navigator
         screenOptions={{
           tabBarShowLabel: false,
+
           tabBarStyle: {
             backgroundColor: "#1c1c1c"
           },
+
         }}>
         <Tab.Screen
           name="Home"
