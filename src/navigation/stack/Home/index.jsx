@@ -1,11 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from '../../../screens/Home/HomeScreen';
 
 const Index = () => {
+
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View>
-      <Text>Home STack</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name='Home' component={HomeScreen} options={{
+        
+      }} />
+    </Stack.Navigator>
   );
 };
 

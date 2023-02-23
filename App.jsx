@@ -25,15 +25,18 @@ const App = () => {
     SplashScreen.hide();
     checkOnBoarding()
   }, []);
+  const MyTheme = {
+    colors: {
+      background: '#1c1c1c'
+    },
+  };
   return (
 
-    <NavigationContainer>
-
+    <NavigationContainer theme={MyTheme} >
       {!isOnboarding ?
         <TabNavigation />
         :
         <OnBoardingContainer setIsOnBoarding={setIsOnBoarding} />
-
       }
     </NavigationContainer>
   )
