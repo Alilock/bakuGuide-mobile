@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, SectionList, FlatList } from 'react-native'
+import { View, Text, StyleSheet, SectionList, FlatList, Pressable, TouchableOpacity } from 'react-native'
 import React from 'react'
 import places from '../../data/places'
 import PlaceCard from '../../components/Card/PlaceCard';
@@ -28,7 +28,9 @@ const HomeScreen = () => {
                             data={section.data}
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            renderItem={PlaceCard}
+                            renderItem={({ item }) => (
+                                <PlaceCard item={item} />
+                            )}
                         />
                     </>
                 )}

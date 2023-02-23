@@ -1,39 +1,50 @@
-import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image, Pressable, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { ClockIcon, LocationIcon, StarIcon } from '../Icons'
-
+import { ClockIcon, FavoriteIcon, LocationIcon, StarIcon } from '../Icons'
+import { useNavigation } from '@react-navigation/native'
 const PlaceCard = ({ item }) => {
+    const navigation = useNavigation()
+    const goDetail = () => {
+        navigation.navigate("Detail")
+    }
     return (
-        <View style={styles.container}>
-            <View>
-                <Image style={styles.image} source={item.image} />
-            </View>
-            <View style={styles.detail}>
-                <Text style={styles.detail.name}>{item.name.substring(0, 23)}</Text>
-                <View style={styles.features}>
-                    <View style={styles.location}>
-                        <LocationIcon width={10} height={18} />
-                        <Text style={styles.location.distance}>
-                            {item.distance}
-                        </Text>
+        <TouchableOpacity onPress={goDetail}>
+
+            <View style={styles.container}>
+                <View style={styles.imageWrapper}>
+                    <Image style={styles.image} source={item.image} />
+                    <View style={styles.imageWrapper.icon}>
+                        <FavoriteIcon width={16} height={16} stroke={"#fff"} />
+                    </View>
+                </View>
+                <View style={styles.detail}>
+                    <Text style={styles.detail.name}>{item.name.substring(0, 23)}</Text>
+                    <View style={styles.features}>
+                        <View style={styles.location}>
+                            <LocationIcon width={10} height={18} />
+                            <Text style={styles.location.distance}>
+                                {item.distance}
+                            </Text>
+
+                        </View>
+                        <View style={styles.location}>
+                            <ClockIcon width={10} height={18} />
+                            <Text style={styles.location.distance}>
+                                {item.openadate} - {item.closedate}
+                            </Text>
+                        </View>
+                        <View style={styles.location}>
+                            <StarIcon width={10} height={18} />
+                            <Text style={styles.location.distance}>
+                                {item.rate}
+                            </Text>
+                        </View>
 
                     </View>
-                    <View style={styles.location}>
-                        <ClockIcon width={10} height={18} />
-                        <Text style={styles.location.distance}>
-                            {item.openadate} - {item.closedate}
-                        </Text>
-                    </View>
-                    <View style={styles.location}>
-                        <StarIcon width={10} height={18} />
-                        <Text style={styles.location.distance}>
-                            {item.rate}
-                        </Text>
-                    </View>
-
                 </View>
             </View>
-        </View>
+
+        </TouchableOpacity>
     )
 }
 
@@ -77,6 +88,17 @@ const styles = StyleSheet.create({
         distance: {
             fontSize: 10,
             color: "white",
+        }
+    },
+    imageWrapper: {
+        position: "relative",
+        icon: {
+            position: "absolute",
+            padding: 8,
+            backgroundColor: "#1c1c1c",
+            borderRadius: 16,
+            right: 16,
+            top: 16
         }
     }
 })
