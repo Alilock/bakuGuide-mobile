@@ -8,7 +8,7 @@ const PlaceCard = ({ item }) => {
         navigation.navigate("Detail")
     }
     return (
-        <TouchableOpacity onPress={goDetail}>
+        <Pressable onPress={goDetail}>
 
             <View style={styles.container}>
                 <View style={styles.imageWrapper}>
@@ -33,18 +33,18 @@ const PlaceCard = ({ item }) => {
                                 {item.openadate} - {item.closedate}
                             </Text>
                         </View>
-                        <View style={styles.location}>
+                        <TouchableOpacity onPress={() => alert("salam")} style={styles.location}>
                             <StarIcon width={10} height={18} />
                             <Text style={styles.location.distance}>
                                 {item.rate}
                             </Text>
-                        </View>
+                        </TouchableOpacity>
 
                     </View>
                 </View>
             </View>
 
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 
