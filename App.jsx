@@ -6,6 +6,8 @@ import OnBoardingContainer from './src/screens/OnBoarding/OnBoardingContainer';
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigation from './src/navigation/index';
 import { LogBox } from 'react-native';
+import { store } from './src/features';
+import { Provider } from "react-redux";
 const App = () => {
   LogBox.ignoreAllLogs();
   const [isOnboarding, setIsOnBoarding] = useState(true);
@@ -33,17 +35,18 @@ const App = () => {
     },
   };
   return (
+    <Provider store={store}>
+      <NavigationContainer theme={MyTheme} >
+        {!isOnboarding ? (
 
-    <NavigationContainer theme={MyTheme} >
-      {!isOnboarding ? (
+          < TabNavigation />
+        ) : (
+          <OnBoardingContainer setIsOnBoarding={setIsOnBoarding} />
 
-        < TabNavigation />
-      ) : (
-        <OnBoardingContainer setIsOnBoarding={setIsOnBoarding} />
+        )}
 
-      )}
-
-    </NavigationContainer>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
