@@ -27,7 +27,6 @@ const App = () => {
 
   useEffect(() => {
     SplashScreen.hide();
-    AsyncStorage.clear();
     checkOnBoarding();
   }, []);
   const MyTheme = {
