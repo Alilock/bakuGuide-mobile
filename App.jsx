@@ -1,13 +1,13 @@
-import {View, Text, StyleSheet, StatusBar, SafeAreaView} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { View, Text, StyleSheet, StatusBar, SafeAreaView } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnBoardingContainer from './src/screens/OnBoarding/OnBoardingContainer';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import TabNavigation from './src/navigation/index';
-import {LogBox} from 'react-native';
-import {store} from './src/features';
-import {Provider} from 'react-redux';
+import { LogBox } from 'react-native';
+import { store } from './src/features';
+import { Provider } from 'react-redux';
 const App = () => {
   LogBox.ignoreAllLogs();
   const [isOnboarding, setIsOnBoarding] = useState(true);

@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {useSelector} from 'react-redux';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import useLocation from '../../library/UseLocation';
 import Geocoder from 'react-native-geocoding';
-import {LocationIcon} from '../Icons';
+import { LocationIcon } from '../Icons';
+import WeatherIcon from './WeatherIcon';
 
 const LocationHeaderView = () => {
   const [address, setAddress] = useState('');
   const [weatherData, setWeatherData] = useState('');
   useLocation();
-  const {latitude, longitude, error, loading} = useSelector(
+  const { latitude, longitude, error, loading } = useSelector(
     state => state.location,
   );
   const fetchWeather = () => {
@@ -31,21 +32,22 @@ const LocationHeaderView = () => {
     if (latitude && longitude) {
       Geocoder.init('AIzaSyBOr8iEaw-JrUGTdOZ5KpuWEmltI0L4GgU');
       Geocoder.from(latitude && latitude, longitude && longitude).then(json => {
-        console.log('sa', json.results[8]);
         var addressComponent = json.results[8].formatted_address;
         setAddress(addressComponent);
       });
       fetchWeather();
     }
   }, [latitude, longitude]);
-  console.log('render', longitude, latitude);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.location}>
         <LocationIcon width={16} height={24} />
         <Text style={styles.text}>{address && address}</Text>
       </View>
-      <View style={styles.weather}></View>
+      <View style={styles.weather}>
+        <WeatherIcon condition={"Clouds"} />
+
+      </View>
     </SafeAreaView>
   );
 };

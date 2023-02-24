@@ -1,42 +1,31 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, Text } from 'react-native';
+import { ClockIcon } from '../Icons';
+import { ClubIcon } from '../Icons';
 
 const WeatherIcon = ({ condition, size = 40 }) => {
-  let iconSource;
+    let iconComponent;
 
-  switch (condition) {
-    case 'Clear':
-      iconSource = require('./clear.png');
-      break;
-    case 'Clouds':
-      iconSource = require('./clouds.png');
-      break;
-    case 'Rain':
-      iconSource = require('./rain.png');
-      break;
-    case 'Snow':
-      iconSource = require('./snow.png');
-      break;
-    default:
-      iconSource = require('./default.png');
-      break;
-  }
+    switch (condition) {
+        case 'Clear':
+            iconComponent = <ClockIcon width={size} height={size} />;
+            break;
+        case 'Clouds':
+            iconComponent = <ClubIcon width={size} height={size} />;
+            break;
+        default:
+            iconComponent = null;
+    }
 
-  return (
-    <Image
-      source={iconSource}
-      style={{ width: size, height: size }}
-      resizeMode="contain"
-    />
-  );
+    return iconComponent;
 };
 
 export default WeatherIcon;
 
 // Styles
 const styles = StyleSheet.create({
-  icon: {
-    width: 40,
-    height: 40,
-  },
+    icon: {
+        width: 40,
+        height: 40,
+    },
 });
