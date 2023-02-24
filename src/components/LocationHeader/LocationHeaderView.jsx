@@ -45,7 +45,7 @@ const LocationHeaderView = () => {
         <Text style={styles.text}>{address && address}</Text>
       </View>
       <View style={styles.weather}>
-        <WeatherIcon condition={"Clouds"} />
+        {/* <WeatherIcon condition={"Clouds"} /> */}
 
       </View>
     </SafeAreaView>

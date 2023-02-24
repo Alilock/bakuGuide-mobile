@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, StatusBar, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, SafeAreaView, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -27,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     SplashScreen.hide();
-    // AsyncStorage.clear();
+    AsyncStorage.clear();
     checkOnBoarding();
   }, []);
   const MyTheme = {
@@ -37,6 +37,7 @@ const App = () => {
   };
   return (
     <Provider store={store}>
+
       <NavigationContainer theme={MyTheme}>
         {!isOnboarding ? (
           <TabNavigation />
@@ -44,6 +45,7 @@ const App = () => {
           <OnBoardingContainer setIsOnBoarding={setIsOnBoarding} />
         )}
       </NavigationContainer>
+
     </Provider>
   );
 };
