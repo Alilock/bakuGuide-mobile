@@ -1,11 +1,19 @@
 import {StyleSheet, Text, View} from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import SearchScreen from '../../../screens/Search/SearchScreen';
 
 const Index = () => {
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View>
-      <Text>Search Stack</Text>
-    </View>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Search" component={SearchScreen} options={{}} />
+      {/* <Stack.Screen name="Detail" component={DetailScreen} /> */}
+    </Stack.Navigator>
   );
 };
 
