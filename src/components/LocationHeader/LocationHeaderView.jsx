@@ -6,6 +6,7 @@ import useLocation from '../../library/UseLocation';
 import Geocoder from 'react-native-geocoding';
 import { LocationIcon } from '../Icons';
 import WeatherIcon from './WeatherIcon';
+import WeatherHeaderView from './WeatherHeaderView';
 
 const LocationHeaderView = () => {
   const [address, setAddress] = useState('');
@@ -15,15 +16,11 @@ const LocationHeaderView = () => {
     state => state.location,
   );
   const fetchWeather = () => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b74796c32de0943ffb3b350b82a921d6&units=metric`,
-    )
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=b74796c32de0943ffb3b350b82a921d6&units=metric`,)
       .then(res => res.json())
       .then(json => {
         setWeatherData(json);
-        console.log(weatherData);
       })
-      .then(console.log(weatherData))
       .catch(err => {
         console.log('ERror', err);
       });
@@ -45,8 +42,10 @@ const LocationHeaderView = () => {
         <Text style={styles.text}>{address && address}</Text>
       </View>
       <View style={styles.weather}>
-        {/* <WeatherIcon condition={"Clouds"} /> */}
+        {weatherData &&
+          <WeatherHeaderView weatherData={weatherData} />
 
+        }
       </View>
     </SafeAreaView>
   );
@@ -54,6 +53,9 @@ const LocationHeaderView = () => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
   },
   location: {
     flexDirection: 'row',
@@ -70,5 +72,8 @@ const styles = StyleSheet.create({
     flexWrap: 'nowrap',
     marginLeft: 8,
   },
+  weather: {
+
+  }
 });
 export default LocationHeaderView;
