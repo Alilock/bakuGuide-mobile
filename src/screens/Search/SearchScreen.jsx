@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ClockIcon,
   FavoriteIcon,
@@ -23,7 +23,7 @@ import PlaceCard from '../../components/Card/PlaceCard';
 import places from '../../data/places';
 const SearchScreen = () => {
   const [click, setclick] = useState(null);
-  const renderCategory = ({ item, index }) => {
+  const renderCategory = ({item, index}) => {
     return (
       <TouchableOpacity onPress={() => setclick(index)}>
         <View
@@ -31,8 +31,11 @@ const SearchScreen = () => {
             ...styles.categoryWrapper,
             backgroundColor: index == click ? '#E0783E' : '#1c1c1c',
           }}>
-          <Image source={item.image} style={{ width: 14, height: 22, resizeMode: "contain" }} />
-          <Text style={{ color: '#FFFFFF' }}>{item.name}</Text>
+          <Image
+            source={item.image}
+            style={{width: 14, height: 22, resizeMode: 'contain'}}
+          />
+          <Text style={{color: '#FFFFFF'}}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -41,25 +44,26 @@ const SearchScreen = () => {
   return (
     <SafeAreaView>
       <View style={styles.searchWrapper}>
-        <SearchIcon stroke={"#fff"} width={16} />
+        <SearchIcon stroke={'#fff'} width={16} />
         <TextInput
           style={styles.input}
           placeholder="Search by item"
           placeholderTextColor="#b9b9b9"
         />
       </View>
-      <FlatList data={categories}
+      <FlatList
+        data={categories}
         showsHorizontalScrollIndicator={false}
         renderItem={renderCategory}
-        contentContainerStyle={{ marginHorizontal: 16 }}
-        horizontal />
+        contentContainerStyle={{marginHorizontal: 16}}
+        horizontal
+      />
       <PlaceFavoriteCard />
-      <FlatList data={places}
-        contentContainerStyle={{ marginHorizontal: 16 }}
+      <FlatList
+        data={places}
+        contentContainerStyle={{marginHorizontal: 16}}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <PlaceFavoriteCard item={item} />
-        )}
+        renderItem={({item}) => <PlaceFavoriteCard item={item} />}
       />
     </SafeAreaView>
   );
@@ -93,7 +97,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    gap: 8
+    gap: 8,
   },
-
 });
