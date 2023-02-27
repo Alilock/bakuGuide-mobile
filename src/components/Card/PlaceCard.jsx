@@ -9,7 +9,6 @@ const PlaceCard = ({ item }) => {
     }
     return (
         <Pressable onPress={goDetail}>
-
             <View style={styles.container}>
                 <View style={styles.imageWrapper}>
                     <Image style={styles.image} source={item.image} />

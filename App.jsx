@@ -8,6 +8,9 @@ import TabNavigation from './src/navigation/index';
 import { LogBox } from 'react-native';
 import { store } from './src/features';
 import { Provider } from 'react-redux';
+import Indicator from './src/components/Indicator/Indicator';
+
+
 const App = () => {
   LogBox.ignoreAllLogs();
   const [isOnboarding, setIsOnBoarding] = useState(true);
@@ -35,17 +38,18 @@ const App = () => {
     },
   };
   return (
-    <Provider store={store}>
+    loading ? <Indicator /> :
+      < Provider store={store} >
 
-      <NavigationContainer theme={MyTheme}>
-        {!isOnboarding ? (
-          <TabNavigation />
-        ) : (
-          <OnBoardingContainer setIsOnBoarding={setIsOnBoarding} />
-        )}
-      </NavigationContainer>
+        <NavigationContainer theme={MyTheme}>
+          {!isOnboarding ? (
+            <TabNavigation />
+          ) : (
+            <OnBoardingContainer setIsOnBoarding={setIsOnBoarding} />
+          )}
+        </NavigationContainer>
 
-    </Provider>
+      </Provider >
   );
 };
 

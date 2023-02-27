@@ -10,7 +10,7 @@ const Index = () => {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Home' component={HomeScreen} options={{
+      <Stack.Screen name='HomeScreen' component={HomeScreen} options={{
         header: () => <LocationHeaderView />
       }} />
       <Stack.Screen name="Detail" component={DetailScreen} />

@@ -21,6 +21,8 @@ const HomeScreen = () => {
                     return null
                 }}
                 keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+
                 renderSectionHeader={({ section }) => (
                     <>
                         <Text style={styles.title}>{section.title}s nearby</Text>
