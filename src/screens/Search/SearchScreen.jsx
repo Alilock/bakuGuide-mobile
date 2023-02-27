@@ -45,7 +45,6 @@ const SearchScreen = () => {
           placeholderTextColor="#ffffff"
         />
       </View>
-      <FlatList data={categories} renderItem={renderCategory} horizontal />
       <View style={styles.imgContainer}>
         <View style={styles.favBtn}>
           <FavoriteIcon />
