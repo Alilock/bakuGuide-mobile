@@ -5,6 +5,7 @@ import HomeStack from './stack/Home';
 import SearchStack from './stack/Search';
 import FavoriteStack from './stack/Favorite';
 import { FavoriteIcon, Homeicon, SearchIcon } from '../components/Icons';
+import LocationHeaderView from '../components/LocationHeader/LocationHeaderView';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +44,10 @@ const TabNavigation = () => {
           name="Favorite"
           component={FavoriteStack}
           options={({ route }) => ({
+            headerTitle: "Saved",
+            headerTintColor: "#fff",
+            headerTitleAlign: "left",
+            headerTitleStyle: { fontSize: 20, fontWeight: "600" },
             tabBarIcon: ({ color, focused }) => (
               <FavoriteIcon stroke={focused ? '#E0783E' : '#414141'} />
             ),

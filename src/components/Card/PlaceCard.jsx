@@ -7,28 +7,52 @@ import {
   Pressable,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
-import {ClockIcon, FavoriteIcon, LocationIcon, StarIcon} from '../Icons';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {addFavorites} from '../../features/FavoriteSlice/favoriteSlice';
-const PlaceCard = ({item}) => {
+import React, { useEffect } from 'react';
+import { ClockIcon, FavoriteIcon, LocationIcon, StarIcon } from '../Icons';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite, loadFavorites, removeFavorite } from '../../features/FavoriteSlice/favoriteSlice';
+const PlaceCard = ({ item, width }) => {
+
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(loadFavorites())
+  }, [])
+
+  const favorites = useSelector(state => state.favorite.favorites);
+  const isFavorite = favorites.includes(item.id);
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      dispatch(removeFavorite(item.id));
+    } else {
+      dispatch(addFavorite(item.id));
+    }
+  };
+
+
   const navigation = useNavigation();
   const goDetail = () => {
     navigation.navigate('Detail');
   };
 
-  const dispatch = useDispatch();
-
   return (
     <Pressable onPress={goDetail}>
-      <View style={styles.container}>
+      <View style={{ ...styles.container, width: width }}>
         <View style={styles.imageWrapper}>
           <Image style={styles.image} source={item.image} />
           <View style={styles.imageWrapper.icon}>
-            <TouchableOpacity onPress={() => dispatch(addFavorites(item.id))}>
-              <FavoriteIcon width={16} height={16} stroke={'#fff'} />
+            <TouchableOpacity onPress={toggleFavorite}>
+              {isFavorite ? (
+                <FavoriteIcon width={16} height={16} fill={"#fff"} stroke={'#fff'} />
+              ) : (
+                <FavoriteIcon width={16} height={16} stroke={'#fff'} />
+
+              )}
             </TouchableOpacity>
+
           </View>
         </View>
         <View style={styles.detail}>
@@ -61,8 +85,6 @@ export default PlaceCard;
 
 const styles = StyleSheet.create({
   container: {
-    width: 230,
-    marginRight: 16,
     marginBottom: 32,
   },
   image: {

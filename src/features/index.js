@@ -1,10 +1,9 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {favoriteSlice} from './FavoriteSlice/favoriteSlice';
-import {locationSlice} from './LocationSlice/locationSlice';
-
+import { configureStore } from '@reduxjs/toolkit';
+import { locationSlice } from './LocationSlice/locationSlice';
+import favoriteSlice from './FavoriteSlice/favoriteSlice';
 export const store = configureStore({
   reducer: {
     location: locationSlice.reducer,
-    favorites: favoriteSlice.reducer,
+    favorite: favoriteSlice
   },
 });

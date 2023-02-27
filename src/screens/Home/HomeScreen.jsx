@@ -29,9 +29,10 @@ const HomeScreen = () => {
                         <FlatList
                             data={section.data}
                             horizontal
+                            contentContainerStyle={{ gap: 16 }}
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ item }) => (
-                                <PlaceCard item={item} />
+                                <PlaceCard width={230} item={item} />
                             )}
                         />
                     </>

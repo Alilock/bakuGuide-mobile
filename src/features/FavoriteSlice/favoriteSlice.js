@@ -1,27 +1,39 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {favoritesStorageHelper} from '../../library/favoritesStorageHelper';
+import { createSlice } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const favoriteSlice = createSlice({
+const initialState = {
+  favorites: [],
+};
+
+export const favoritesSlice = createSlice({
   name: 'favorites',
-  initialState: {
-    favorites: [],
-  },
+  initialState,
   reducers: {
-    getAll: (state, action) => {
-      state.favorites = favoritesStorageHelper.get('favorites');
+    addFavorite: (state, action) => {
+      const placeId = action.payload;
+      if (!state.favorites.includes(placeId)) {
+        state.favorites.push(placeId);
+        AsyncStorage.setItem('favorites', JSON.stringify(state.favorites));
+      }
     },
-    addFavorites: (state, action) => {
-      console.log(action);
-      state.favorites.push(action.payload);
-      favoritesStorageHelper.set('favorites', state.favorites);
-      // console.log(state)
+    removeFavorite: (state, action) => {
+      const placeId = action.payload;
+      state.favorites = state.favorites.filter(id => id !== placeId);
+      AsyncStorage.setItem('favorites', JSON.stringify(state.favorites));
     },
-    removeFavotires: (state, action) => {
-      let id = action.payload.id;
-      state.favorites = state.favorites.filter(item => item.id !== id);
-      console.log('removed');
+    setFavorites: (state, action) => {
+      state.favorites = action.payload;
     },
   },
 });
 
-export const {addFavorites, removeFavotires, getAll} = favoriteSlice.actions;
+export const { addFavorite, removeFavorite, setFavorites } = favoritesSlice.actions;
+
+export const loadFavorites = () => async dispatch => {
+  const favorites = await AsyncStorage.getItem('favorites');
+  if (favorites) {
+    dispatch(setFavorites(JSON.parse(favorites)));
+  }
+};
+
+export default favoritesSlice.reducer;
