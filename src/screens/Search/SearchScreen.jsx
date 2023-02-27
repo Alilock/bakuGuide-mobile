@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ClockIcon,
   FavoriteIcon,
@@ -18,9 +18,12 @@ import {
   StarIcon,
 } from '../../components/Icons';
 import categories from '../../data/categories';
+import PlaceFavoriteCard from '../../components/Card/PlaceFavoriteCard';
+import PlaceCard from '../../components/Card/PlaceCard';
+import places from '../../data/places';
 const SearchScreen = () => {
   const [click, setclick] = useState(null);
-  const renderCategory = ({item, index}) => {
+  const renderCategory = ({ item, index }) => {
     return (
       <TouchableOpacity onPress={() => setclick(index)}>
         <View
@@ -28,8 +31,8 @@ const SearchScreen = () => {
             ...styles.categoryWrapper,
             backgroundColor: index == click ? '#E0783E' : '#1c1c1c',
           }}>
-          <RestaurantIcon />
-          <Text style={{padding: 8, color: '#FFFFFF'}}>{item.name}</Text>
+          <Image source={item.image} style={{ width: 14, height: 22, resizeMode: "contain" }} />
+          <Text style={{ color: '#FFFFFF' }}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -38,56 +41,26 @@ const SearchScreen = () => {
   return (
     <SafeAreaView>
       <View style={styles.searchWrapper}>
-        <SearchIcon />
+        <SearchIcon stroke={"#fff"} width={16} />
         <TextInput
           style={styles.input}
           placeholder="Search by item"
-          placeholderTextColor="#ffffff"
+          placeholderTextColor="#b9b9b9"
         />
       </View>
-      <FlatList data={categories} renderItem={renderCategory} horizontal />
-      <View style={styles.imgContainer}>
-        <View style={styles.favBtn}>
-          <FavoriteIcon />
-        </View>
-        <Image
-          style={styles.img}
-          source={{
-            uri: 'https://media-cdn.tripadvisor.com/media/photo-s/11/ce/a2/76/the-terrace-photo.jpg',
-          }}
-        />
-      </View>
-      <View style={styles.infoWrapper}>
-        <Text
-          style={{
-            fontFamily: 'SF Pro Text',
-            fontWeight: '400',
-            fontSize: 16,
-            color: '#FFFFFF',
-          }}>
-          Museum Inn
-        </Text>
-        <View style={{flexDirection: 'row', marginTop: 8}}>
-          <View style={{flexDirection: 'row'}}>
-            <Text>
-              <LocationIcon />
-            </Text>
-            <Text style={{color: '#ffffff'}}>13 km</Text>
-          </View>
-          <View style={{flexDirection: 'row', marginHorizontal: 16}}>
-            <Text>
-              <ClockIcon />
-            </Text>
-            <Text style={{color: '#ffffff'}}>8:00 - 23:00</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text>
-              <StarIcon />
-            </Text>
-            <Text style={{color: '#ffffff'}}>4,3</Text>
-          </View>
-        </View>
-      </View>
+      <FlatList data={categories}
+        showsHorizontalScrollIndicator={false}
+        renderItem={renderCategory}
+        contentContainerStyle={{ marginHorizontal: 16 }}
+        horizontal />
+      <PlaceFavoriteCard />
+      <FlatList data={places}
+        contentContainerStyle={{ marginHorizontal: 16 }}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <PlaceFavoriteCard item={item} />
+        )}
+      />
     </SafeAreaView>
   );
 };
@@ -111,46 +84,16 @@ const styles = StyleSheet.create({
   },
   categoryWrapper: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#262626',
     borderRadius: 12,
     marginHorizontal: 4,
-    paddingHorizontal: 8,
-    marginTop: 20,
-  },
-  imgContainer: {
-    width: '100%',
-    height: 209,
-    paddingHorizontal: 16,
-    marginTop: 20,
-  },
-  img: {
-    height: '100%',
-    width: '100%',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  favBtn: {
-    position: 'absolute',
-    top: 20,
-    right: 30,
-    zIndex: 999,
-    backgroundColor: 'black',
-    height: 40,
-    width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-  },
-  infoWrapper: {
-    paddingTop: 8,
-    marginHorizontal: 15,
-    borderLeftWidth: 1,
-    borderBottomWidth: 1,
-    borderBottomLeftRadius: 12,
+    marginBottom: 27,
+    marginTop: 16,
     paddingHorizontal: 12,
-    borderBottomRightRadius: 12,
+    paddingVertical: 8,
+    gap: 8
   },
+
 });
