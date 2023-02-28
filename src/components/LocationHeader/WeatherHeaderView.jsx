@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
 
 const WeatherIcon = ({ condition, size = 16, isDay }) => {
     let iconComponent;
-
     switch (condition) {
         case 'Clear':
             iconComponent = isDay ? <ClearSkyDay width={size} height={size} /> : <ClearSkyNight width={size} height={size} />
@@ -76,6 +75,10 @@ const WeatherIcon = ({ condition, size = 16, isDay }) => {
         case "Drizzle":
             iconComponent = isDay ? <RainDay width={size} height={size} /> : <RainNight width={size} height={size} />
             break
+        case "Fog":
+            iconComponent = <Mist width={size} height={size} />
+            break
+
         default:
             iconComponent = null;
     }
